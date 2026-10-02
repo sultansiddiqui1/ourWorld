@@ -1,0 +1,85 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-night-950: #05060f;
+  --color-night-900: #0a0c1f;
+  --color-night-800: #141834;
+  --color-night-700: #1e2350;
+  --color-blush: #f7a8c4;
+  --color-blush-deep: #e86f9b;
+  --color-starlight: #ffe9b8;
+  --color-lilac: #b9a7ff;
+
+  --font-sans: 'Nunito', ui-rounded, system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-hand: 'Caveat', cursive;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: #f4f1ff;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.glass {
+  background: rgb(20 24 52 / 0.62);
+  border: 1px solid rgb(255 255 255 / 0.09);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.constellation-label {
+  text-align: center;
+  text-shadow: 0 0 12px rgb(5 6 15 / 0.9);
+  user-select: none;
+}
+
+.reel-spin {
+  animation: reel 1.6s linear infinite;
+}
+@keyframes reel {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.fade-in {
+  animation: fade-in 1.2s ease both;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.card-pop {
+  animation: card-pop 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+}
+@keyframes card-pop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reel-spin,
+  .fade-in,
+  .card-pop {
+    animation: none;
+  }
+}
