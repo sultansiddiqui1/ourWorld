@@ -16,7 +16,12 @@ export function useAudio(src: string) {
     a.preload = 'metadata'
     a.src = src
     ref.current = a
-    const on = (ev: string, fn: () => void) => a.addEventListener(ev, fn)
+    setStatus('idle')
+    setProgress(0)
+    // Listeners are removed before teardown: clearing `src` fires an "error" event that would
+    // otherwise mark the *next* element (e.g. StrictMode's remount) as missing.
+    const listeners = new AbortController()
+    const on = (ev: string, fn: () => void) => a.addEventListener(ev, fn, { signal: listeners.signal })
     on('loadedmetadata', () => setDuration(a.duration))
     on('timeupdate', () => setProgress(a.duration ? a.currentTime / a.duration : 0))
     on('playing', () => setStatus('playing'))
@@ -25,9 +30,11 @@ export function useAudio(src: string) {
     on('ended', () => setStatus('ended'))
     on('error', () => setStatus('missing'))
     return () => {
+      listeners.abort()
       a.pause()
       if (current === a) current = null
-      a.src = ''
+      a.removeAttribute('src')
+      a.load()
     }
   }, [src])
 

@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react'
+import Letters from '../letters/Letters'
 import Universe from '../universe/Universe'
 
 type Tab = 'universe' | 'letters' | 'vending'
@@ -41,7 +42,7 @@ export default function AppShell() {
         <div className={tab === 'universe' ? 'h-full' : 'hidden'}>
           <Universe active={tab === 'universe'} />
         </div>
-        {tab === 'letters' && <ComingSoon emoji="💌" title="Open when…" body="Letters you can open (and listen to) when you need them. Coming in Phase 3." />}
+        {tab === 'letters' && <Letters active />}
         {tab === 'vending' && <ComingSoon emoji="🍬" title="Reasons machine" body="Tap to dispense a reason I love you. Coming in Phase 4." />}
       </main>
       <nav className="relative z-40 border-t border-white/[0.07] bg-night-900/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-md">
