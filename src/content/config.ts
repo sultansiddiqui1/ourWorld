@@ -8,6 +8,17 @@ export interface Person {
   constellation: ConstellationId
 }
 
+/**
+ * Which tabs are switched on. Unfinished ones are visible while developing (`npm run dev`)
+ * but hidden from the live site — flip them to `true` when their content is written.
+ */
+const inDev = import.meta.env.DEV
+export const features = {
+  letters: inDev, // "Open when" letters — waiting on real letters + voice notes
+  reasons: inDev, // vending machine — waiting on real reasons
+  punch: true,
+}
+
 export const config = {
   /** Digits typed on the gate screen. TODO: change to something only she knows. */
   passcode: '0000',

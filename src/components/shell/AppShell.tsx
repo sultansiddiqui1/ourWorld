@@ -1,10 +1,16 @@
-import { useState, type ReactNode } from 'react'
-import Letters from '../letters/Letters'
+import { lazy, Suspense, useState, type ReactNode } from 'react'
+import { features } from '../../content/config'
 import Universe from '../universe/Universe'
 
-type Tab = 'universe' | 'letters' | 'vending'
+// Each extra tab (and its 3D model) only downloads when it's opened — so tabs that are
+// switched off in `features` never cost the live site anything.
+const Letters = lazy(() => import('../letters/Letters'))
+const Vending = lazy(() => import('../vending/Vending'))
+const Punch = lazy(() => import('../punch/Punch'))
 
-const TABS: { id: Tab; label: string; icon: ReactNode }[] = [
+type Tab = 'universe' | 'letters' | 'vending' | 'punch'
+
+const ALL_TABS: { id: Tab; label: string; icon: ReactNode }[] = [
   {
     id: 'universe',
     label: 'Universe',
@@ -31,7 +37,20 @@ const TABS: { id: Tab; label: string; icon: ReactNode }[] = [
       </>
     ),
   },
+  {
+    id: 'punch',
+    label: 'Punch me',
+    icon: (
+      <>
+        <path d="M7 10V8a4 4 0 0 1 4-4h3a4 4 0 0 1 4 4v5a5 5 0 0 1-5 5h-2a4 4 0 0 1-4-4v-1" />
+        <path d="M7 10a2 2 0 1 0 0 4h2M12 4v4M9 20h6" />
+      </>
+    ),
+  },
 ]
+
+const ENABLED: Record<Tab, boolean> = { universe: true, letters: features.letters, vending: features.reasons, punch: features.punch }
+const TABS = ALL_TABS.filter((t) => ENABLED[t.id])
 
 export default function AppShell() {
   const [tab, setTab] = useState<Tab>('universe')
@@ -42,8 +61,11 @@ export default function AppShell() {
         <div className={tab === 'universe' ? 'h-full' : 'hidden'}>
           <Universe active={tab === 'universe'} />
         </div>
-        {tab === 'letters' && <Letters active />}
-        {tab === 'vending' && <ComingSoon emoji="🍬" title="Reasons machine" body="Tap to dispense a reason I love you. Coming in Phase 4." />}
+        <Suspense fallback={<div className="grid h-full place-items-center text-sm text-white/40">loading…</div>}>
+          {tab === 'letters' && <Letters active />}
+          {tab === 'vending' && <Vending active />}
+          {tab === 'punch' && <Punch active />}
+        </Suspense>
       </main>
       <nav className="relative z-40 border-t border-white/[0.07] bg-night-900/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-md">
         <ul className="flex">
@@ -66,16 +88,6 @@ export default function AppShell() {
           })}
         </ul>
       </nav>
-    </div>
-  )
-}
-
-function ComingSoon({ emoji, title, body }: { emoji: string; title: string; body: string }) {
-  return (
-    <div className="flex h-full flex-col items-center justify-center px-10 text-center">
-      <p className="text-5xl">{emoji}</p>
-      <h2 className="font-display mt-4 text-2xl text-white">{title}</h2>
-      <p className="mt-2 text-sm text-white/55">{body}</p>
     </div>
   )
 }
