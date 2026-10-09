@@ -121,6 +121,23 @@ button {
   }
 }
 
+.zzz {
+  animation: zzz 1.65s ease-out infinite both;
+}
+@keyframes zzz {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.6);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(24px, -60px) scale(1.3);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reel-spin,
   .fade-in,

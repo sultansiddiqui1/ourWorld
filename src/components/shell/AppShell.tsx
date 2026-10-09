@@ -7,8 +7,9 @@ import Universe from '../universe/Universe'
 const Letters = lazy(() => import('../letters/Letters'))
 const Vending = lazy(() => import('../vending/Vending'))
 const Punch = lazy(() => import('../punch/Punch'))
+const Love = lazy(() => import('../love/Love'))
 
-type Tab = 'universe' | 'letters' | 'vending' | 'punch'
+type Tab = 'universe' | 'letters' | 'vending' | 'punch' | 'love'
 
 const ALL_TABS: { id: Tab; label: string; icon: ReactNode }[] = [
   {
@@ -47,9 +48,14 @@ const ALL_TABS: { id: Tab; label: string; icon: ReactNode }[] = [
       </>
     ),
   },
+  {
+    id: 'love',
+    label: 'Love me',
+    icon: <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />,
+  },
 ]
 
-const ENABLED: Record<Tab, boolean> = { universe: true, letters: features.letters, vending: features.reasons, punch: features.punch }
+const ENABLED: Record<Tab, boolean> = { universe: true, letters: features.letters, vending: features.reasons, punch: features.punch, love: features.love }
 const TABS = ALL_TABS.filter((t) => ENABLED[t.id])
 
 export default function AppShell() {
@@ -65,6 +71,7 @@ export default function AppShell() {
           {tab === 'letters' && <Letters active />}
           {tab === 'vending' && <Vending active />}
           {tab === 'punch' && <Punch active />}
+          {tab === 'love' && <Love active />}
         </Suspense>
       </main>
       <nav className="relative z-40 border-t border-white/[0.07] bg-night-900/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-md">

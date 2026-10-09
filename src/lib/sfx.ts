@@ -37,7 +37,95 @@ function noise(dur: number, gain: number, delay = 0) {
   src.start(t)
 }
 
+let musicTimer: number | null = null
+let muted = false
+
 export const sfx = {
+  /** Global mute for the cute sounds (the punch game ignores it — it's loud on purpose). */
+  setMuted(m: boolean) {
+    muted = m
+  },
+  kiss() {
+    if (muted) return
+    try {
+      tone(900, 1700, 0.09, 'sine', 0.18)
+      noise(0.05, 0.25, 0.06)
+    } catch {
+      /* audio unavailable */
+    }
+  },
+  giggle() {
+    if (muted) return
+    try {
+      ;[0, 0.11, 0.22, 0.33].forEach((d, i) => tone(700 + i * 60, 900 + i * 60, 0.08, 'triangle', 0.1, d))
+    } catch {
+      /* audio unavailable */
+    }
+  },
+  heartbeat() {
+    if (muted) return
+    try {
+      tone(90, 60, 0.12, 'sine', 0.6)
+      tone(80, 55, 0.12, 'sine', 0.45, 0.18)
+    } catch {
+      /* audio unavailable */
+    }
+  },
+  chime() {
+    if (muted) return
+    try {
+      ;[1047, 1319, 1568].forEach((f, i) => tone(f, f, 0.5, 'sine', 0.08, i * 0.09))
+    } catch {
+      /* audio unavailable */
+    }
+  },
+  shutter() {
+    if (muted) return
+    try {
+      noise(0.04, 0.6)
+      noise(0.05, 0.4, 0.07)
+    } catch {
+      /* audio unavailable */
+    }
+  },
+  pop() {
+    if (muted) return
+    try {
+      tone(400, 900, 0.07, 'sine', 0.2)
+    } catch {
+      /* audio unavailable */
+    }
+  },
+  /** Soft music-box loop (C – Am – F – G arpeggios). */
+  music(on: boolean) {
+    if (musicTimer !== null) {
+      window.clearInterval(musicTimer)
+      musicTimer = null
+    }
+    if (!on) return
+    const chords = [
+      [523, 659, 784, 1047],
+      [440, 523, 659, 880],
+      [349, 440, 523, 698],
+      [392, 494, 587, 784],
+    ]
+    let step = 0
+    const play = () => {
+      if (muted) return
+      const c = chords[Math.floor(step / 8) % chords.length]
+      const n = c[[0, 1, 2, 3, 2, 1, 2, 3][step % 8]]
+      try {
+        tone(n, n, 0.9, 'sine', 0.045)
+        tone(n * 2, n * 2, 0.4, 'triangle', 0.012)
+      } catch {
+        /* audio unavailable */
+      }
+      step++
+    }
+    play()
+    musicTimer = window.setInterval(play, 330)
+  },
+
   /** A cartoon "bonk": thump + short body; strength 0..1. */
   punch(strength = 0.5, crit = false) {
     try {

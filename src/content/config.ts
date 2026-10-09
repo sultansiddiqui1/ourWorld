@@ -17,6 +17,7 @@ export const features = {
   letters: inDev, // "Open when" letters — waiting on real letters + voice notes
   reasons: inDev, // vending machine — waiting on real reasons
   punch: true,
+  love: true, // "Love me" couple game
 }
 
 export const config = {
