@@ -1,12 +1,17 @@
 /**
  * Notes hidden inside each day's flower, keyed by date (YYYY-MM-DD).
- * Days without an entry show one of the fallback lines below.
+ * Days without an entry get one of the lines below — shuffled, and none repeats
+ * until every line has been used once. Add, edit or delete lines freely.
  */
 export const gardenNotes: Record<string, string> = {
   '2026-09-01': 'The very first flower. Everything starts here.',
 }
 
 export const fallbackNotes = [
+  // yours ♡
+  'Every time I hear BB, it reminds me of you.',
+  'I used to love cashews more. Now I love almonds a lot more — I miss my almond eyes.',
+
   'I thought about you today. (I think about you every day.)',
   'Another day closer to seeing you.',
   'This one bloomed just because you exist.',
@@ -15,4 +20,51 @@ export const fallbackNotes = [
   'You make ordinary days feel like this.',
   'If you’re reading this, smile. That’s an order.',
   'I’d choose you in every universe.',
+  'I saw something cute today and my first thought was: I have to show her.',
+  'My favourite notification is still your name.',
+  'I replayed your voice note in my head all day.',
+  'Somewhere between “good morning” and “goodnight”, you became my whole day.',
+  'Momos taste better when I’m eating them with you. Even over a video call.',
+  'I keep saving little things to tell you. My list is very long now.',
+  'You’re the first thing I want to tell good news to, and the first person I want when the news is bad.',
+  'Fun fact: my heart does a little jump every time you text “hey”.',
+  'I miss the way you laugh at your own jokes before you finish them.',
+  'Your almond eyes are my favourite view, and I don’t even need a window for it.',
+  'Today’s weather: cloudy, with a 100% chance of missing you.',
+  'If kisses could travel by Wi-Fi, check your phone. I just sent a hundred.',
+  'You’re the reason I check the time zone app more than the weather app.',
+  'Every song in my playlist is secretly about you now. Sorry, songs.',
+  'This flower has your name on it. Literally — I asked it.',
+  'I hope today was kind to you. If it wasn’t, I’m here.',
+  'You make my heart do the thing. You know the thing.',
+  'One day this garden will be full, and we’ll be in the same city. Both are coming.',
+  'I love you in a very “I’d share my last momo” kind of way.',
+  'Little reminder: you are loved, you are enough, and you are mine. ♡',
+  'Counting down days is easier when every day ends with you.',
+  'I miss you more than I miss sleeping in on a Monday.',
+  'You’re my favourite hello and my hardest goodbye.',
+  'Drink some water. Eat something good. Text me. In that order.',
+  'Your smile is my favourite thing on the internet.',
+  'I just looked at your photo for way too long. Again.',
+  'Whatever you’re worried about today — you’ve got this. And you’ve got me.',
+  'I think the stars over Nepal are jealous of your eyes.',
+  'Not a single day goes by without me being grateful you exist.',
+  'If you were a flower, you’d be this one. Pretty, a little stubborn, and impossible to ignore.',
+  'Your hugs are on my wishlist, my bucket list, and my to-do list.',
+  'Distance means so little when someone means so much.',
+  'You’re home. The person, not the place.',
+  'I can’t wait to hold your hand without a screen in between.',
+  'I love the version of me that I am with you.',
+  'Even my bad days get better the moment you call.',
+  'You’re cute when you’re sleepy. You’re cute when you’re angry. You’re just cute.',
+  'Another flower, another reason. I’m never running out of either.',
+  'Close your eyes for three seconds. That was me hugging you.',
+  'You + me + a long walk + something to eat. That’s my dream day.',
+  'I’d cross every mountain in the Himalaya for one more day with you.',
+  'Thank you for being patient with me. I notice. Always.',
+  'I like you. I love you. I’m obsessed with you. All three.',
+  'Plot twist: the flower was just an excuse to tell you I love you.',
+  'Some days I miss you quietly. Today I miss you loudly.',
+  'You make me want to be better — not because you ask, but because you deserve it.',
+  'Keep this one. It’s a forever flower. Just like us.',
 ]

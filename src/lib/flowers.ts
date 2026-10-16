@@ -93,6 +93,13 @@ for (const [i, p] of config.people.entries()) {
       : { species: 'gurans', palette: { petal: '#e3173e', center: '#ffe08a' } }
 }
 
+/** Fallback notes also come from shuffled bags: no line repeats until every line has been used. */
+function noteFor(index: number): string {
+  const n = fallbackNotes.length
+  const bag = Math.floor(index / n)
+  return shuffled(seeded(`${config.startDate}:notes:${bag}`), fallbackNotes)[index % n]
+}
+
 /** Species cycle through shuffled "bags" of all seven, so neighbours rarely repeat. */
 function speciesFor(index: number): Species {
   const bag = Math.floor(index / SPECIES.length)
@@ -134,7 +141,7 @@ export function gardenDay(key: DateKey, index: number): GardenDay {
     phase: range(rnd, 0, Math.PI * 2),
     z: range(rnd, -0.35, 0.15),
     special,
-    note: gardenNotes[key] ?? pick(seeded(`note:${key}`), fallbackNotes),
+    note: gardenNotes[key] ?? noteFor(index),
   }
 }
 

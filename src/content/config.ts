@@ -18,6 +18,7 @@ export const features = {
   reasons: inDev, // vending machine — waiting on real reasons
   punch: true,
   love: true, // "Love me" couple game
+  countdown: true, // "Until you" — Berlin ✈︎ Kathmandu
 }
 
 export const config = {
@@ -35,4 +36,15 @@ export const config = {
     { name: '', birthday: '2000-09-18', birthplace: 'Nepalgunj, Nepal', constellation: 'virgo' },
     { name: '', birthday: '2002-04-21', birthplace: 'Hetauda, Nepal', constellation: 'taurus' },
   ] satisfies Person[],
+
+  /** "Until you" countdown. Times are in HER local time zone. */
+  meetup: {
+    /** When you see each other — add a time if you know it, e.g. '2027-01-02T14:30'. */
+    next: '2027-01-02',
+    /** When you last said goodbye: the little plane's journey starts here. TODO: set it. */
+    lastGoodbye: '2026-09-01',
+    /** Cities + IANA time zones. */
+    her: { city: 'Kathmandu', timeZone: 'Asia/Kathmandu' },
+    him: { city: 'Berlin', timeZone: 'Europe/Berlin' },
+  },
 }
